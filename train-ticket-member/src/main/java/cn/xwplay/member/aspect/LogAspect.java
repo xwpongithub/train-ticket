@@ -39,7 +39,7 @@ public class LogAspect {
         var name = signature.getName();
 
         log.info("------------MDC:{}请求进入-----------",logId);
-        log.info("请求URL:{}",request.getRequestURL());
+        log.info("请求URL:[{} {}]",request.getMethod(),request.getRequestURL());
         log.info("执行类-方法:{}.{}",signature.getDeclaringTypeName(),name);
         log.info("远程地址:{}",request.getRemoteAddr());
 
