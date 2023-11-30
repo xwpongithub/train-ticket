@@ -16,6 +16,7 @@
     <properties>
         <spring-boot.version>3.2.0</spring-boot.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
+        <fastjson.version>1.2.57</fastjson.version>
 
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -38,6 +39,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
 
         </dependencies>
