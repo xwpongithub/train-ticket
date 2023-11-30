@@ -1,4 +1,4 @@
-package cn.xwplay.member.config;
+package cn.xwplay.common.config;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
