@@ -11,12 +11,13 @@
 
     <modules>
         <module>train-ticket-member</module>
+        <module>train-ticket-common</module>
     </modules>
 
     <properties>
         <spring-boot.version>3.2.0</spring-boot.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
-        <fastjson.version>1.2.57</fastjson.version>
+        <fastjson2.version>2.0.42</fastjson2.version>
 
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -42,10 +43,17 @@
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>cn.xwplay</groupId>
+                <artifactId>train-ticket-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

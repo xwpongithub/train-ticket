@@ -1,7 +1,7 @@
-package cn.xwplay.member.aspect;
+package cn.xwplay.common.aspect;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.support.spring.PropertyPreFilters;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.filter.PropertyFilter;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class LogAspect {
         var name = signature.getName();
 
         log.info("------------MDC:{}请求进入-----------",logId);
-        log.info("请求URL:[{} {}]",request.getMethod(),request.getRequestURL());
+        log.info("请求URL:[{}] - {}",request.getMethod(),request.getRequestURL());
         log.info("执行类-方法:{}.{}",signature.getDeclaringTypeName(),name);
         log.info("远程地址:{}",request.getRemoteAddr());
 
@@ -50,14 +50,16 @@ public class LogAspect {
             || args[i] instanceof MultipartFile) {
                 continue;
             }
+            System.out.println(args[i]);
             arguments[i] = args[i];
         }
         // 排除字段，敏感或太长的字段不显示
-        var excludeProperties = new String[]{"mobile"};
-        var filters = new PropertyPreFilters();
-        PropertyPreFilters.MySimplePropertyPreFilter excludeFilter = filters.addFilter();
-        excludeFilter.addExcludes(excludeProperties);
-        log.info("请求参数：{}", JSONObject.toJSONString(arguments,excludeFilter));
+        // 排除字段，敏感或太长的字段不显示
+        PropertyFilter filter = (object, propName, value) -> {
+            // 在这里定义需要保留的属性条件
+            return !"mobile".equals(propName);
+        };
+        log.info("请求参数：{}", JSON.toJSONString(arguments,filter));
     }
 
     @Around("controllerPointcut()")
@@ -65,11 +67,11 @@ public class LogAspect {
       var startTime = System.currentTimeMillis();
       var result =proceedingJoinPoint.proceed();
         // 排除字段，敏感或太长的字段不显示
-        var excludeProperties = new String[]{"mobile"};
-        var filters = new PropertyPreFilters();
-        PropertyPreFilters.MySimplePropertyPreFilter excludeFilter = filters.addFilter();
-        excludeFilter.addExcludes(excludeProperties);
-        log.info("返回结果：{}", JSONObject.toJSONString(result,excludeFilter));
+        PropertyFilter filter = (object, name, value) -> {
+            // 在这里定义需要保留的属性条件
+            return !"mobile".equals(name);
+        };
+        log.info("返回结果：{}", JSON.toJSONString(result,filter));
         log.info("---------------请求结束，耗时：{}ms -------------",System.currentTimeMillis() - startTime);
         return result;
     }
