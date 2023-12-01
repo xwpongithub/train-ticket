@@ -1,0 +1,2 @@
+module train.ticket.common {
+}
