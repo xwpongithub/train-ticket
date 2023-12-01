@@ -1,14 +1,7 @@
-POST http://localhost:8001/member/1
-Content-Type: application/json
+POST http://localhost:8001/member/member/register
+Content-Type: application/x-www-form-urlencoded
 
-{
-  "mobile": "13708790110",
-  "name": "肖文彭"
-}
-
-###
-GET http://localhost:8001/member?mobile=13708790110
-#Accept: application/json
+mobile=13708790110
 
 
 ###
