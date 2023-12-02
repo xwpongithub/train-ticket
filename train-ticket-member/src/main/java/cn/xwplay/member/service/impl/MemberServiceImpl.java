@@ -1,5 +1,7 @@
 package cn.xwplay.member.service.impl;
 
+import cn.xwplay.common.exception.BusinessException;
+import cn.xwplay.common.exception.BusinessExceptionEnum;
 import cn.xwplay.member.domain.MemberEntity;
 import cn.xwplay.member.mapper.MemberMapper;
 import cn.xwplay.member.req.MemberRegisterReq;
@@ -20,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
         mobileExistsQ.eq(MemberEntity::getMobile,mobile);
         var mobileExists = memberMapper.exists(mobileExistsQ);
         if (mobileExists) {
-            throw new RuntimeException("该手机号已被其他人使用");
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
         var newMember = new MemberEntity();
         newMember.setMobile(mobile);
