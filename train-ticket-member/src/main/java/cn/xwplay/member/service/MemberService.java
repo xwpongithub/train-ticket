@@ -1,5 +1,7 @@
 package cn.xwplay.member.service;
 
+import cn.xwplay.member.req.MemberRegisterReq;
+
 /**
  * @author X02413
  * @date 2023/12/01 22:27
@@ -9,5 +11,5 @@ package cn.xwplay.member.service;
  **/
 public interface MemberService {
 
-    Long register(String mobile);
+    Long register(MemberRegisterReq req);
 }

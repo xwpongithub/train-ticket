@@ -1,8 +1,11 @@
 package cn.xwplay.member.controller;
 
+import cn.xwplay.common.response.CommonResp;
+import cn.xwplay.member.req.MemberRegisterReq;
 import cn.xwplay.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +24,11 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("register")
-    public Long register(String mobile) {
-        return memberService.register(mobile);
+    public CommonResp<Long> register(@RequestBody MemberRegisterReq req) {
+        var resp = new CommonResp<Long>();
+        resp.setContent(memberService.register(req));
+        resp.setMessage("注册成功");
+        return resp;
     }
 
 }
