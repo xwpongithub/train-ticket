@@ -3,6 +3,7 @@ package cn.xwplay.member.exception;
 import cn.xwplay.common.exception.BusinessException;
 import cn.xwplay.common.response.CommonResp;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,20 +50,20 @@ public class ControllerExceptionHandler {
         return commonResp;
     }
 
-//    /**
-//     * 校验异常统一处理
-//     * @param e
-//     * @return
-//     */
-//    @ExceptionHandler(value = BindException.class)
-//    @ResponseBody
-//    public CommonResp exceptionHandler(BindException e) {
-//        CommonResp commonResp = new CommonResp();
-//        LOG.error("校验异常：{}", e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-//        commonResp.setSuccess(false);
-//        commonResp.setMessage(e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-//        return commonResp;
-//    }
+    /**
+     * 校验异常统一处理
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = BindException.class)
+    @ResponseBody
+    public CommonResp exceptionHandler(BindException e) {
+        CommonResp commonResp = new CommonResp();
+        log.error("校验异常：{}", e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        commonResp.setSuccess(false);
+        commonResp.setMessage(e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        return commonResp;
+    }
 //
 //    /**
 //     * 校验异常统一处理
