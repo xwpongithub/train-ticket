@@ -50,7 +50,6 @@ public class LogAspect {
             || args[i] instanceof MultipartFile) {
                 continue;
             }
-            System.out.println(args[i]);
             arguments[i] = args[i];
         }
         // 排除字段，敏感或太长的字段不显示

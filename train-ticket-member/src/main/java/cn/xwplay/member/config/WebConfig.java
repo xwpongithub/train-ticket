@@ -21,17 +21,17 @@ public class WebConfig implements WebMvcConfigurer {
         return simpleModule;
     }
 
-    @Bean
-    CorsFilter corsFilter() {
-        var corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
-        corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
-        corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
-        corsConfiguration.setAllowCredentials(true);
-        var source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",corsConfiguration);
-        return new CorsFilter(source);
-    }
+//    @Bean
+//    CorsFilter corsFilter() {
+//        var corsConfiguration = new CorsConfiguration();
+//        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+//        corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
+//        corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
+//        corsConfiguration.setAllowCredentials(true);
+//        var source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**",corsConfiguration);
+//        return new CorsFilter(source);
+//    }
 
 
 }

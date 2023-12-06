@@ -21,6 +21,7 @@
         <fastjson2.version>2.0.42</fastjson2.version>
         <mybatis-plus.version>3.5.4.1</mybatis-plus.version>
         <postgresql.version>42.7.0</postgresql.version>
+        <hutool.version>5.8.23</hutool.version>
 
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -67,6 +68,12 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-jwt</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
 
         </dependencies>
