@@ -2,6 +2,7 @@ package cn.xwplay.member.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.xwplay.common.context.LoginMemberContext;
 import cn.xwplay.member.domain.PassengerEntity;
 import cn.xwplay.member.mapper.PassengerMapper;
 import cn.xwplay.member.req.PassengerSaveReq;
@@ -21,6 +22,7 @@ public class PassengerServiceImpl implements PassengerService {
         var passenger = BeanUtil.copyProperties(req, PassengerEntity.class);
         passenger.setCreateTime(now);
         passenger.setUpdateTime(now);
+        passenger.setMemberId(LoginMemberContext.getId());
         passengerMapper.insert(passenger);
     }
 
