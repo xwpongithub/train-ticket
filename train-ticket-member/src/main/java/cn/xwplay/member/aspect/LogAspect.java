@@ -26,7 +26,7 @@ public class LogAspect {
     /**
      * 定义一个切点
      */
-    @Pointcut("execution(public * cn.xwplay..*Controller.*(..))")
+    @Pointcut("execution(public * cn.xwplay.member..*Controller.*(..))")
     public void controllerPointcut() {
     }
 

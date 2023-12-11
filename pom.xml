@@ -13,6 +13,8 @@
         <module>train-ticket-member</module>
         <module>train-ticket-common</module>
         <module>train-ticket-gateway</module>
+        <module>train-ticket-generator</module>
+        <module>train-ticket-business</module>
     </modules>
 
     <properties>
@@ -22,6 +24,8 @@
         <mybatis-plus.version>3.5.4.1</mybatis-plus.version>
         <postgresql.version>42.7.0</postgresql.version>
         <hutool.version>5.8.23</hutool.version>
+        <pagehelper.version>2.0.0</pagehelper.version>
+        <freemarker.version>2.3.32</freemarker.version>
 
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -74,6 +78,22 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-jwt</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
 
         </dependencies>

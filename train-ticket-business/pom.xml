@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.xwplay</groupId>
+        <artifactId>train-ticket</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>cn.xwplay.business</groupId>
+    <artifactId>train-ticket-business</artifactId>
+    <packaging>jar</packaging>
+
+    <name>train-ticket-business</name>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.xwplay</groupId>
+            <artifactId>train-ticket-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <finalName>train-ticket-business</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.1.6</version>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <parameters>true</parameters>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
