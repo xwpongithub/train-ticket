@@ -32,7 +32,7 @@ CREATE TABLE train (
                        start VARCHAR(20) NOT NULL,
                        start_pinyin VARCHAR(50) NOT NULL,
                        start_time TIME NOT NULL,
-                       "end" VARCHAR(20) NOT NULL,
+                       end_val VARCHAR(20) NOT NULL,
                        end_pinyin VARCHAR(50) NOT NULL,
                        end_time TIME NOT NULL,
                        create_time TIMESTAMP(0),
@@ -48,7 +48,7 @@ COMMENT ON COLUMN train.type IS '车次类型|枚举[TrainTypeEnum]';
 COMMENT ON COLUMN train.start IS '始发站';
 COMMENT ON COLUMN train.start_pinyin IS '始发站拼音';
 COMMENT ON COLUMN train.start_time IS '出发时间';
-COMMENT ON COLUMN train."end" IS '终点站';
+COMMENT ON COLUMN train.end_val IS '终点站';
 COMMENT ON COLUMN train.end_pinyin IS '终点站拼音';
 COMMENT ON COLUMN train.end_time IS '到站时间';
 COMMENT ON COLUMN train.create_time IS '新增时间';
@@ -152,7 +152,7 @@ CREATE TABLE daily_train (
                              start VARCHAR(20) NOT NULL,
                              start_pinyin VARCHAR(50) NOT NULL,
                              start_time TIME NOT NULL,
-                             "end" VARCHAR(20) NOT NULL,
+                             end_val VARCHAR(20) NOT NULL,
                              end_pinyin VARCHAR(50) NOT NULL,
                              end_time TIME NOT NULL,
                              create_time TIMESTAMP(0),
@@ -169,7 +169,7 @@ COMMENT ON COLUMN daily_train.type IS '车次类型|枚举[TrainTypeEnum]';
 COMMENT ON COLUMN daily_train.start IS '始发站';
 COMMENT ON COLUMN daily_train.start_pinyin IS '始发站拼音';
 COMMENT ON COLUMN daily_train.start_time IS '出发时间';
-COMMENT ON COLUMN daily_train."end" IS '终点站';
+COMMENT ON COLUMN daily_train.end_val IS '终点站';
 COMMENT ON COLUMN daily_train.end_pinyin IS '终点站拼音';
 COMMENT ON COLUMN daily_train.end_time IS '到站时间';
 COMMENT ON COLUMN daily_train.create_time IS '新增时间';

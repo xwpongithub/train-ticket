@@ -15,6 +15,7 @@
         <module>train-ticket-gateway</module>
         <module>train-ticket-generator</module>
         <module>train-ticket-business</module>
+        <module>train-ticket-batch</module>
     </modules>
 
     <properties>

@@ -5,13 +5,15 @@ import lombok.Data;
 
 import java.util.Date;
 
-@TableName(value="train",schema = "public")
-@KeySequence(value="public.train_id_seq",dbType = DbType.POSTGRE_SQL)
+@TableName(value="daily_train",schema = "public")
+@KeySequence(value="public.daily_train_id_seq",dbType = DbType.POSTGRE_SQL)
 @Data
-public class TrainEntity {
+public class DailyTrainEntity {
 
     @TableId(type = IdType.INPUT)
     private Long id;
+
+    private Date date;
 
     private String code;
 
@@ -23,7 +25,7 @@ public class TrainEntity {
 
     private Date startTime;
 
-    @TableField(value="end_val")
+    @TableField(value = "end_val")
     private String end;
 
     private String endPinyin;
@@ -33,5 +35,6 @@ public class TrainEntity {
     private Date createTime;
 
     private Date updateTime;
+
 
 }

@@ -1,0 +1,10 @@
+### 新增
+POST http://localhost:8000/member/passenger/save
+Content-Type: application/json
+token: {{token}}
+
+{
+  "name": "钟昌桂",
+  "idCard": "532201199003132402",
+  "type": "1"
+}
