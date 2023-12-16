@@ -3,6 +3,7 @@ package cn.xwplay.batch;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.stereotype.Indexed;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Indexed;
         }
 )
 @Indexed
+@EnableFeignClients("cn.xwplay.batch.feign")
 public class BatchApplication {
     public static void main( String[] args ) {
         var app = SpringApplication.run(BatchApplication.class,args);

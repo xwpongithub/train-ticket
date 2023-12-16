@@ -8,7 +8,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class SchedulerConfig {
 
@@ -22,4 +22,27 @@ public class SchedulerConfig {
         factory.setStartupDelay(2);
         return factory;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

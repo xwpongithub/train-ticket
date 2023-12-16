@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -117,5 +118,12 @@ public class TrainSeatServiceImpl implements TrainSeatService {
         }
     }
 
+    @Override
+    public List<TrainSeatEntity> selectByTrainCode(String trainCode) {
+        var q = Wrappers.<TrainSeatEntity>lambdaQuery();
+        q.orderByAsc(TrainSeatEntity::getId)
+                .eq(TrainSeatEntity::getTrainCode,trainCode);
+        return trainSeatMapper.selectList(q);
+    }
 
 }

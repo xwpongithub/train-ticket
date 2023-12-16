@@ -85,6 +85,7 @@ public class TrainServiceImpl implements TrainService {
         return BeanUtil.copyToList(trainList, TrainQueryResp.class);
     }
 
+    @Override
     public List<TrainEntity> selectAll() {
         var q = Wrappers.<TrainEntity>lambdaQuery();
        q.orderByAsc(TrainEntity::getCode);

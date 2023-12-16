@@ -1,5 +1,6 @@
 package cn.xwplay.business.service;
 
+import cn.xwplay.business.domain.TrainEntity;
 import cn.xwplay.business.req.TrainQueryReq;
 import cn.xwplay.business.req.TrainSaveReq;
 import cn.xwplay.business.resp.TrainQueryResp;
@@ -16,5 +17,7 @@ public interface TrainService {
     void delete(Long id);
 
     List<TrainQueryResp> queryAll();
+
+    List<TrainEntity> selectAll();
 
 }

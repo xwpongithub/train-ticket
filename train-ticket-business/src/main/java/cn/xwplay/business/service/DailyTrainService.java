@@ -5,6 +5,8 @@ import cn.xwplay.business.req.DailyTrainSaveReq;
 import cn.xwplay.business.resp.DailyTrainQueryResp;
 import cn.xwplay.common.response.PageResp;
 
+import java.util.Date;
+
 public interface DailyTrainService {
 
     void save(DailyTrainSaveReq req);
@@ -12,5 +14,7 @@ public interface DailyTrainService {
     PageResp<DailyTrainQueryResp> queryList(DailyTrainQueryReq req);
 
     void delete(Long id);
+
+    void genDaily(Date date);
 
 }
