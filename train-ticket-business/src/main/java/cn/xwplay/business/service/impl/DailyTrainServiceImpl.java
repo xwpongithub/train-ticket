@@ -32,6 +32,7 @@ public class DailyTrainServiceImpl implements DailyTrainService {
     private final DailyTrainStationService dailyTrainStationService;
     private final DailyTrainCarriageService dailyTrainCarriageService;
     private final DailyTrainSeatService dailyTrainSeatService;
+    private final DailyTrainTicketService dailyTrainTicketService;
 
     @Override
     public void save(DailyTrainSaveReq req) {
@@ -106,7 +107,7 @@ public class DailyTrainServiceImpl implements DailyTrainService {
         trainList.forEach(train-> genDailyTrain(date,train));
     }
 
-    public void genDailyTrain(Date date, TrainEntity train) {
+    private void genDailyTrain(Date date, TrainEntity train) {
         log.info("生成日期【{}】车次【{}】的信息开始", DateUtil.formatDate(date), train.getCode());
         // 删除该车次已有的数据
         var delQ = new LambdaQueryWrapper<DailyTrainEntity>();
@@ -117,10 +118,10 @@ public class DailyTrainServiceImpl implements DailyTrainService {
         // 生成该车次的数据
         var now = DateUtil.date();
         var dailyTrain = BeanUtil.copyProperties(train, DailyTrainEntity.class);
-//        dailyTrain.setCreateTime(now);
-//        dailyTrain.setUpdateTime(now);
-//        dailyTrain.setDate(date);
-//        dailyTrainMapper.insert(dailyTrain);
+        dailyTrain.setCreateTime(now);
+        dailyTrain.setUpdateTime(now);
+        dailyTrain.setDate(date);
+        dailyTrainMapper.insert(dailyTrain);
 
         // 生成该车次的车站数据
         dailyTrainStationService.genDaily(date, train.getCode());
@@ -131,8 +132,8 @@ public class DailyTrainServiceImpl implements DailyTrainService {
         // 生成该车次的座位数据
         dailyTrainSeatService.genDaily(date, train.getCode());
 
-//         生成该车次的余票数据
-//        dailyTrainTicketService.genDaily(dailyTrain, date, train.getCode());
+        //   生成该车次的余票数据
+        dailyTrainTicketService.genDaily(dailyTrain, date, train.getCode());
 
         // 生成令牌余量数据
 //        skTokenService.genDaily(date, train.getCode());
