@@ -44,6 +44,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(logInterceptor);
+
         // 路径不要包含context-path
         registry.addInterceptor(memberInterceptor)
                 .addPathPatterns("/**")

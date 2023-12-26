@@ -87,12 +87,6 @@ public class DailyTrainCarriageServiceImpl implements DailyTrainCarriageService 
     public void genDaily(Date date, String trainCode) {
         log.info("生成日期【{}】车次【{}】的车厢信息开始", DateUtil.formatDate(date), trainCode);
 
-        // 删除某日某车次的车厢信息
-        var delQ = Wrappers.<DailyTrainCarriageEntity>lambdaQuery();
-        delQ.eq(DailyTrainCarriageEntity::getDate,date)
-                .eq(DailyTrainCarriageEntity::getTrainCode,trainCode);
-        dailyTrainCarriageMapper.delete(delQ);
-
         // 查出某车次的所有的车厢信息
         var carriageList = trainCarriageService.selectByTrainCode(trainCode);
         if (CollUtil.isEmpty(carriageList)) {

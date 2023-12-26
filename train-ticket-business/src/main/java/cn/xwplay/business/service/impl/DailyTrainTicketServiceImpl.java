@@ -84,8 +84,8 @@ public class DailyTrainTicketServiceImpl implements DailyTrainTicketService {
                 .orderByAsc(DailyTrainTicketEntity::getStartTime,DailyTrainTicketEntity::getTrainCode,DailyTrainTicketEntity::getStartIndex,DailyTrainTicketEntity::getEndIndex)
                 .eq(Objects.nonNull(req.getDate()),DailyTrainTicketEntity::getDate,req.getDate())
                 .eq(StrUtil.isNotBlank(req.getTrainCode()),DailyTrainTicketEntity::getDate,req.getTrainCode())
-                .eq(StrUtil.isNotBlank(req.getStart()),DailyTrainTicketEntity::getStart,req.getStart())
-                .eq(StrUtil.isNotBlank(req.getEnd()),DailyTrainTicketEntity::getEnd,req.getEnd())
+                .like(StrUtil.isNotBlank(req.getStart()),DailyTrainTicketEntity::getStart,req.getStart())
+                .like(StrUtil.isNotBlank(req.getEnd()),DailyTrainTicketEntity::getEnd,req.getEnd())
         ;
 
         log.info("查询页码：{}", req.getPage());
@@ -114,13 +114,6 @@ public class DailyTrainTicketServiceImpl implements DailyTrainTicketService {
     @Override
     public void genDaily(DailyTrainEntity dailyTrain, Date date, String trainCode) {
         log.info("生成日期【{}】车次【{}】的余票信息开始", DateUtil.formatDate(date), trainCode);
-
-        // 删除某日某车次的余票信息
-        var delQ = Wrappers.<DailyTrainTicketEntity>lambdaQuery();
-        delQ
-                .eq(DailyTrainTicketEntity::getDate,date)
-                .eq(DailyTrainTicketEntity::getTrainCode,trainCode);
-        dailyTrainTicketMapper.delete(delQ);
 
         // 查出某车次的所有的车站信息
         var stationList = trainStationService.selectByTrainCode(trainCode);

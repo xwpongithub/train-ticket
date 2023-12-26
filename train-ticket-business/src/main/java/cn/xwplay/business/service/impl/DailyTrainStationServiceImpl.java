@@ -79,12 +79,6 @@ public class DailyTrainStationServiceImpl implements DailyTrainStationService {
     public void genDaily(Date date, String trainCode) {
         log.info("生成日期【{}】车次【{}】的车站信息开始", DateUtil.formatDate(date), trainCode);
 
-        // 删除某日某车次的车站信息
-        var delQ = Wrappers.<DailyTrainStationEntity>lambdaQuery();
-        delQ.eq(DailyTrainStationEntity::getDate,date)
-                .eq(DailyTrainStationEntity::getTrainCode,trainCode);
-        dailyTrainStationMapper.delete(delQ);
-
         // 查出某车次的所有的车站信息
         var stationList = trainStationService.selectByTrainCode(trainCode);
         if (CollUtil.isEmpty(stationList)) {

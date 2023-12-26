@@ -87,13 +87,6 @@ public class DailyTrainSeatServiceImpl implements DailyTrainSeatService {
     public void genDaily(Date date, String trainCode) {
         log.info("生成日期【{}】车次【{}】的座位信息开始", DateUtil.formatDate(date), trainCode);
 
-//         删除某日某车次的座位信息
-        var delQ = Wrappers.<DailyTrainSeatEntity>lambdaQuery();
-delQ
-                .eq(DailyTrainSeatEntity::getDate,date)
-                .eq(DailyTrainSeatEntity::getTrainCode,trainCode);
-        dailyTrainSeatMapper.delete(delQ);
-
         var stationList = trainStationService.selectByTrainCode(trainCode);
         String sell = StrUtil.fillBefore("", '0', stationList.size() - 1);
 

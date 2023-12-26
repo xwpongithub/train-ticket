@@ -2,16 +2,17 @@ package cn.xwplay.business.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
-import cn.xwplay.business.domain.DailyTrainEntity;
-import cn.xwplay.business.domain.TrainEntity;
-import cn.xwplay.business.mapper.DailyTrainMapper;
+import cn.xwplay.business.domain.*;
+import cn.xwplay.business.mapper.*;
 import cn.xwplay.business.req.DailyTrainQueryReq;
 import cn.xwplay.business.req.DailyTrainSaveReq;
 import cn.xwplay.business.resp.DailyTrainQueryResp;
 import cn.xwplay.business.service.*;
 import cn.xwplay.common.response.PageResp;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,10 @@ public class DailyTrainServiceImpl implements DailyTrainService {
     private final DailyTrainCarriageService dailyTrainCarriageService;
     private final DailyTrainSeatService dailyTrainSeatService;
     private final DailyTrainTicketService dailyTrainTicketService;
+    private final DailyTrainStationMapper dailyTrainStationMapper;
+    private final DailyTrainCarriageMapper dailyTrainCarriageMapper;
+    private final DailyTrainSeatMapper dailyTrainSeatMapper;
+    private final DailyTrainTicketMapper dailyTrainTicketMapper;
 
     @Override
     public void save(DailyTrainSaveReq req) {
@@ -104,17 +109,48 @@ public class DailyTrainServiceImpl implements DailyTrainService {
             log.info("没有车次基础数据，任务结束");
             return;
         }
-        trainList.forEach(train-> genDailyTrain(date,train));
+
+        trainList.forEach(train-> {
+            // 删除该车次已有的数据
+            var delQ = new LambdaQueryWrapper<DailyTrainEntity>();
+            delQ
+//                    .eq(DailyTrainEntity::getDate, date)
+                    .eq(DailyTrainEntity::getCode, train.getCode());
+            dailyTrainMapper.delete(delQ);
+            // 删除某日某车次的车站信息
+            var delStationQ = Wrappers.<DailyTrainStationEntity>lambdaQuery();
+            delStationQ
+//                    .eq(DailyTrainStationEntity::getDate,date)
+                    .eq(DailyTrainStationEntity::getTrainCode,train.getCode());
+            dailyTrainStationMapper.delete(delStationQ);
+            // 删除某日某车次的车厢信息
+            var delCarriageQ = Wrappers.<DailyTrainCarriageEntity>lambdaQuery();
+            delCarriageQ
+//                    .eq(DailyTrainCarriageEntity::getDate,date)
+                    .eq(DailyTrainCarriageEntity::getTrainCode,train.getCode());
+            dailyTrainCarriageMapper.delete(delCarriageQ);
+            //  删除某日某车次的座位信息
+            var delSeatQ = Wrappers.<DailyTrainSeatEntity>lambdaQuery();
+            delSeatQ
+//                    .eq(DailyTrainSeatEntity::getDate,date)
+                    .eq(DailyTrainSeatEntity::getTrainCode,train.getCode());
+            dailyTrainSeatMapper.delete(delSeatQ);
+            // 删除某日某车次的余票信息
+            var delTicketQ = Wrappers.<DailyTrainTicketEntity>lambdaQuery();
+            delTicketQ
+//                    .eq(DailyTrainTicketEntity::getDate,date)
+                    .eq(DailyTrainTicketEntity::getTrainCode,train.getCode());
+            dailyTrainTicketMapper.delete(delTicketQ);
+        });
+
+        var dateList = DateUtil.rangeToList(DateUtil.date(),date, DateField.DAY_OF_MONTH,1);
+        dateList.forEach(everyday ->
+            trainList.forEach(train-> genDailyTrain(everyday,train))
+        );
     }
 
     private void genDailyTrain(Date date, TrainEntity train) {
         log.info("生成日期【{}】车次【{}】的信息开始", DateUtil.formatDate(date), train.getCode());
-        // 删除该车次已有的数据
-        var delQ = new LambdaQueryWrapper<DailyTrainEntity>();
-        delQ.eq(DailyTrainEntity::getDate,date)
-                .eq(DailyTrainEntity::getCode,train.getCode());
-        dailyTrainMapper.delete(delQ);
-
         // 生成该车次的数据
         var now = DateUtil.date();
         var dailyTrain = BeanUtil.copyProperties(train, DailyTrainEntity.class);

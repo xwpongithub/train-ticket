@@ -337,7 +337,7 @@ CREATE TABLE confirm_order (
                                date DATE NOT NULL,
                                train_code VARCHAR(20) NOT NULL,
                                start VARCHAR(20) NOT NULL,
-                               "end" VARCHAR(20) NOT NULL,
+                               end_val VARCHAR(20) NOT NULL,
                                daily_train_ticket_id BIGINT NOT NULL,
                                tickets JSONB NOT NULL,
                                status CHAR(1) NOT NULL,
@@ -355,7 +355,7 @@ COMMENT ON COLUMN confirm_order.member_id IS '会员id';
 COMMENT ON COLUMN confirm_order.date IS '日期';
 COMMENT ON COLUMN confirm_order.train_code IS '车次编号';
 COMMENT ON COLUMN confirm_order.start IS '出发站';
-COMMENT ON COLUMN confirm_order."end" IS '到达站';
+COMMENT ON COLUMN confirm_order.end_val IS '到达站';
 COMMENT ON COLUMN confirm_order.daily_train_ticket_id IS '余票ID';
 COMMENT ON COLUMN confirm_order.tickets IS '车票';
 COMMENT ON COLUMN confirm_order.status IS '订单状态|枚举[ConfirmOrderStatusEnum]';

@@ -39,14 +39,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(logInterceptor);
-        // 路径不要包含context-path
+        registry.addInterceptor(logInterceptor)
+                .addPathPatterns("/**");
+
         registry.addInterceptor(memberInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/hello",
-                        "/member/send-code",
-                        "/member/login"
+                        "/hello"
                 );
     }
 }
