@@ -39,7 +39,7 @@ public class StationServiceImpl implements StationService {
             // 保存之前，先校验唯一键是否存在
             var stationDB = selectByUnique(req.getName());
             if (Objects.nonNull(stationDB)) {
-                throw new BusinessException(BusinessExceptionEnum.BUSINESS_STATION_NAME_UNIQUE_ERROR);
+                throw new BusinessException(BusinessExceptionEnum.BUSINESS_TRAIN_STATION_NAME_UNIQUE_ERROR);
             }
             station.setCreateTime(now);
             station.setUpdateTime(now);
