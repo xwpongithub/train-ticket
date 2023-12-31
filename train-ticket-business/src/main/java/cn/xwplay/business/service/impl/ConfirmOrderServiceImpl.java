@@ -15,10 +15,7 @@ import cn.xwplay.business.mapper.ConfirmOrderMapper;
 import cn.xwplay.business.req.ConfirmOrderDoReq;
 import cn.xwplay.business.req.ConfirmOrderQueryReq;
 import cn.xwplay.business.resp.ConfirmOrderQueryResp;
-import cn.xwplay.business.service.ConfirmOrderService;
-import cn.xwplay.business.service.DailyTrainCarriageService;
-import cn.xwplay.business.service.DailyTrainSeatService;
-import cn.xwplay.business.service.DailyTrainTicketService;
+import cn.xwplay.business.service.*;
 import cn.xwplay.common.context.LoginMemberContext;
 import cn.xwplay.common.exception.BusinessException;
 import cn.xwplay.common.exception.BusinessExceptionEnum;
@@ -44,6 +41,7 @@ public class ConfirmOrderServiceImpl implements ConfirmOrderService {
     private final DailyTrainTicketService dailyTrainTicketService;
     private final DailyTrainCarriageService dailyTrainCarriageService;
     private final DailyTrainSeatService dailyTrainSeatService;
+    private final AfterConfirmOrderService afterConfirmOrderService;
 
     @Override
     public void save(ConfirmOrderDoReq req) {
@@ -172,6 +170,7 @@ public class ConfirmOrderServiceImpl implements ConfirmOrderService {
         //// 修改余票详情表的余票数量
         //// 为会员增加购票记录
         //// 更新确认订单表为成功
+        afterConfirmOrderService.afterDoConfirm(dailyTrainTicket,finalSeatList);
     }
 
     // 一个车厢一个车厢的获取座位
